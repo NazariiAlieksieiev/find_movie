@@ -4,7 +4,11 @@ import {
   ChatCompletionResponseMessage,
 } from "openai";
 
-const API_KEY = "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";
+import { config } from "dotenv";
+config();
+console.log(process.env.API_KEY)
+
+const API_KEY = process.env.API_KEY
 
 const openai = new OpenAIApi(
   new Configuration({
