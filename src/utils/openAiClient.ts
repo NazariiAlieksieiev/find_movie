@@ -4,7 +4,7 @@ import {
   ChatCompletionResponseMessage,
 } from "openai";
 
-const API_KEY = "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";
+const API_KEY = "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";
 
 const openai = new OpenAIApi(
   new Configuration({
