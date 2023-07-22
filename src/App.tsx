@@ -7,6 +7,7 @@ import { useDebounce } from './hooks/useDebounce';
 import { Roles } from './types/messages';
 import { ChatCompletionResponseMessage } from 'openai';
 import { Messages } from './components/message/message';
+import axios from 'axios';
 
 const App: React.FC = () => {
   const [prompt, setPrompt] = useState<string>('')
@@ -38,10 +39,11 @@ const App: React.FC = () => {
 
     const fetchAnswer = async () => {
       try {
-        const message = await getAnswer(request);
-        if (message && message.content) {
+        const message = await axios.get('http://localhost:5000/find_movie');
+        console.log(message)
+       /*  if (message && message.content) {
           setMessages(current => [...current, message])
-        }
+        } */
       } catch (error) {
         console.error('Error fetching answer:', error);
       } finally {

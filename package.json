@@ -12,19 +12,23 @@
     "@types/node": "^16.18.38",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
+    "apicache": "^1.6.3",
     "axios": "^1.4.0",
     "browserify-zlib": "^0.2.0",
     "buffer": "^6.0.3",
+    "cors": "^2.8.5",
     "crypto-browserify": "^3.12.0",
-    "dotenv": "^16.3.1",
     "dotenv-webpack": "^8.0.1",
+    "express": "^4.18.2",
+    "express-rate-limit": "^6.8.0",
+    "needle": "^3.2.0",
     "normalize.css": "^8.0.1",
     "openai": "^3.3.0",
+    "openai-api": "^1.3.1",
     "os-browserify": "^0.3.0",
     "path-browserify": "^1.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-dotenv": "^0.1.3",
     "react-scripts": "5.0.1",
     "sass": "^1.63.6",
     "stream-browserify": "^3.0.0",
@@ -37,7 +41,9 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "dev": "nodemon index",
+    "dev_node": "node index"
   },
   "eslintConfig": {
     "extends": [
@@ -58,9 +64,12 @@
     ]
   },
   "devDependencies": {
+    "dotenv": "^16.3.1",
     "gh-pages": "^5.0.0",
     "http-browserify": "^1.7.0",
     "https-browserify": "^1.0.0",
+    "nodemon": "^3.0.1",
+    "react-dotenv": "^0.1.3",
     "stream-http": "^3.2.0"
   }
 }
