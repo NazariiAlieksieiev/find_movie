@@ -8,7 +8,7 @@ const app = express();
 
 //Enable cors
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: ['http://localhost:3000', 'https://nazariialieksieiev.github.io/find_movie'],
   credentials: true 
 }));
 
