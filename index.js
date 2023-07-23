@@ -15,7 +15,4 @@ app.use(cors({
 //Routes
 app.use('/find_movie', require('./routes/index'))
 
-// Set static folder
-app.use(express.static('public'));
-
 app.listen(PORT, () => console.log(`Server runnig on port ${PORT}`))
