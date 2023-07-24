@@ -9,6 +9,8 @@ import { ChatCompletionResponseMessage } from 'openai';
 import { Messages } from './components/message/message';
 import axios from 'axios';
 
+const URL = process.env.REACT_APP_URL
+
 const App: React.FC = () => {
   const [prompt, setPrompt] = useState<string>('')
   const [messages, setMessages] = useState<ChatCompletionResponseMessage[]>([])
@@ -16,6 +18,8 @@ const App: React.FC = () => {
     role: Roles.User,
     content: ''
   }])
+
+
 
   const inputValue = useDebounce(prompt.trim(), 300)
 
@@ -39,7 +43,7 @@ const App: React.FC = () => {
 
     const fetchAnswer = async () => {
       try {
-        const message = await axios.get('https://calm-ruby-pronghorn-wrap.cyclic.app/find_movie');
+        const message = await axios.get(`${URL}`);
         console.log(message)
        /*  if (message && message.content) {
           setMessages(current => [...current, message])
