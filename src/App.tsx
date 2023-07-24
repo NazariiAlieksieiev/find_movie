@@ -39,7 +39,7 @@ const App: React.FC = () => {
 
     const fetchAnswer = async () => {
       try {
-        const message = await axios.get('http://localhost:5000/find_movie');
+        const message = await axios.get('https://calm-ruby-pronghorn-wrap.cyclic.app/find_movie');
         console.log(message)
        /*  if (message && message.content) {
           setMessages(current => [...current, message])
