@@ -16,9 +16,7 @@ import { Errors } from '../../types/errors';
 
 export const ChatWindow: React.FC = () => {
   const [prompt, setPrompt] = useState<string>('');
-  const [messages, setMessages] = useState<
-  ChatCompletionResponseMessage[]
-  >([
+  const [messages, setMessages] = useState<ChatCompletionResponseMessage[]>([
     {
       role: Roles.User,
       content: 'Привіт',
@@ -57,8 +55,7 @@ export const ChatWindow: React.FC = () => {
 
   const handleSubmit = useCallback(
     (
-      event: FormEvent<HTMLFormElement>
-      | KeyboardEvent<HTMLTextAreaElement>,
+      event: FormEvent<HTMLFormElement> | KeyboardEvent<HTMLTextAreaElement>,
     ) => {
       event.preventDefault();
       if (!promptMessage[0].content) {
@@ -128,9 +125,7 @@ export const ChatWindow: React.FC = () => {
   return (
     <div className="chatWindow">
       {messages
-        && messages.map((
-          message, i,
-        ) => <Messages key={i} message={message} />)}
+        && messages.map((message, i) => <Messages key={i} message={message} />)}
 
       <Form
         onChange={handleTextareaValue}
