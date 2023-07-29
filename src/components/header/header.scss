@@ -1,0 +1,17 @@
+.header {
+  margin-top: 30px;
+  font-size: 36px;
+  font-weight: bold;
+  text-align: start;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+
+  .header__find {
+    display: block;
+    color: #f18303;
+  }
+
+  .header__movie {
+    display: block;
+    color: #03a9f1;
+  }
+}
