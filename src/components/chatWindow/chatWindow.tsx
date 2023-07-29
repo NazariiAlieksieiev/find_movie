@@ -125,7 +125,9 @@ export const ChatWindow: React.FC = () => {
   return (
     <div className="chatWindow">
       {messages
-        && messages.map((message, i) => <Messages key={i} message={message} />)}
+        && messages.map(
+          (message, i) => <Messages key={i} message={message} />,
+        )}
 
       <Form
         onChange={handleTextareaValue}
