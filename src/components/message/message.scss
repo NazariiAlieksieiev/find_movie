@@ -3,17 +3,26 @@
   margin: 5px 0;
   border-radius: 8px;
   font-size: 16px;
-  max-width: 70%;
-}
-
-.user-message {
-  background-color: #007bff;
+  max-width: 75%;
   color: #fff;
-  align-self: flex-start;
-}
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 
-.assistant-message {
-  background-color: #f0f0f0;
-  color: #333;
-  align-self: flex-end;
+  &__container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__user {
+    align-self: flex-start;
+    background-color: #373e4e;
+  }
+
+  &__assistant {
+    align-self: flex-end;
+    background-color: #272a35;
+  }
+
+  &__text {
+    margin: 0 auto;
+  }
 }

@@ -1,9 +1,11 @@
+@import '~normalize.css/normalize.css';
 @import './App.scss';
+@import './components/header/header.scss';
 @import './components/chatWindow/chatWindow.scss';
 @import './components/form/form.scss';
 @import './components/message/message.scss';
-
+@import './components/notification/notification.scss';
 
 body {
-  background-color: lightgray;
+  background-image: url(./icons/bg.jpg);
 }
