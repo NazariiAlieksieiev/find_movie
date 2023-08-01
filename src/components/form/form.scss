@@ -6,11 +6,15 @@
     flex: 1;
     height: 40px;
     padding: 10px;
+    max-height: 150px;
 
-    border: 1px solid #cccccc;
+    border: 1px solid #495972;
     border-radius: 5px 0 0 5px;
 
+    background-color: #495972;
+
     font-size: 16px;
+    color: #ffffff;
 
     outline: none;
     resize: none;
@@ -35,7 +39,6 @@
     background-position: center;
     background-repeat: no-repeat;
 
-    color: #ffffff;
     cursor: pointer;
     outline: none;
 

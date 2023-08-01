@@ -7,11 +7,6 @@
   color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 
-  &__container {
-    display: flex;
-    flex-direction: column;
-  }
-
   &__user {
     align-self: flex-start;
     background-color: #373e4e;
@@ -19,7 +14,7 @@
 
   &__assistant {
     align-self: flex-end;
-    background-color: #272a35;
+    background-color: #373a45;
   }
 
   &__text {

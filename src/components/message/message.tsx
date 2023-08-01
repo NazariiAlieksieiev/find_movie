@@ -10,10 +10,8 @@ export const Messages: React.FC<Props> = ({ message }) => {
   const messageClass = role === 'user' ? 'message__user' : 'message__assistant';
 
   return (
-    <div className="message__container">
-      <div className={`message ${messageClass}`}>
-        <p className="message__text">{content}</p>
-      </div>
+    <div className={`message ${messageClass}`}>
+      <p className="message__text">{content}</p>
     </div>
   );
 };

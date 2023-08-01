@@ -35,6 +35,7 @@ export const ChatWindow: React.FC = () => {
     },
   ]);
   const [error, setError] = useState<Errors | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleTextareaValue = useCallback(
     (event: ChangeEvent<HTMLTextAreaElement>) => {
@@ -58,6 +59,10 @@ export const ChatWindow: React.FC = () => {
       event: FormEvent<HTMLFormElement> | KeyboardEvent<HTMLTextAreaElement>,
     ) => {
       event.preventDefault();
+      if (isLoading) {
+        return;
+      }
+
       if (!promptMessage[0].content) {
         setError(Errors.Empty);
 
@@ -71,9 +76,10 @@ export const ChatWindow: React.FC = () => {
 
       const fetchAnswer = async () => {
         try {
+          setIsLoading(true);
           const response = await axios.post(
             'http://localhost:5000/find_movie',
-            { SendedMessages: requestMessages },
+            { sendedMessages: requestMessages },
           );
 
           const { data } = response;
@@ -86,7 +92,15 @@ export const ChatWindow: React.FC = () => {
             },
           ]);
         } catch (innerError) {
+          setMessages((current) => [...current.slice(0, -1)]);
           setError(Errors.Download);
+
+          if (promptMessage[0].content) {
+            setPrompt(promptMessage[0].content);
+            setIsLoading(false);
+          }
+        } finally {
+          setIsLoading(false);
         }
       };
 
@@ -124,10 +138,12 @@ export const ChatWindow: React.FC = () => {
 
   return (
     <div className="chatWindow">
-      {messages
-        && messages.map(
-          (message, i) => <Messages key={i} message={message} />,
-        )}
+      <div className="chatWindow__messages">
+        {messages
+          && messages.map(
+            (message, i) => <Messages key={i} message={message} />,
+          )}
+      </div>
 
       <Form
         onChange={handleTextareaValue}
@@ -135,6 +151,7 @@ export const ChatWindow: React.FC = () => {
         onSubmit={handleSubmit}
         prompt={prompt}
       />
+
       <Notification error={error} onClose={setError} />
     </div>
   );
