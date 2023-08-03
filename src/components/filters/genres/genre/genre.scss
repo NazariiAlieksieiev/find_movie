@@ -1,10 +1,4 @@
 .genre {
-  box-sizing: border-box;
-  display: flex;
-  flex-wrap: wrap;
-  position: relative;
-  font-size: 16px;
-
   &__item {
     margin: 5px;
     background-color: #03a9f1;

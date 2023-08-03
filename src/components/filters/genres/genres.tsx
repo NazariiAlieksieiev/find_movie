@@ -54,7 +54,7 @@ export const Genres: React.FC<Props> = ({ setFilters }) => {
   }, [selectedGenres]);
 
   return (
-    <div className="genre">
+    <div className="genres">
       {genres.map(
         genre => (
           <Genre
