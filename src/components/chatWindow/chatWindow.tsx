@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, {
   ChangeEvent,
   useCallback,
@@ -5,6 +6,8 @@ import React, {
   FormEvent,
   KeyboardEvent,
   useEffect,
+  useRef,
+  useMemo,
 } from 'react';
 import { ChatCompletionResponseMessage } from 'openai';
 import axios from 'axios';
@@ -14,7 +17,11 @@ import { Notification } from '../notification/notification';
 import { Roles } from '../../types/messages';
 import { Errors } from '../../types/errors';
 
-export const ChatWindow: React.FC = () => {
+interface Props {
+  filters: string,
+}
+
+export const ChatWindow: React.FC<Props> = ({ filters }) => {
   const [prompt, setPrompt] = useState<string>('');
   const [messages, setMessages] = useState<ChatCompletionResponseMessage[]>([
     {
@@ -36,6 +43,37 @@ export const ChatWindow: React.FC = () => {
   ]);
   const [error, setError] = useState<Errors | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const messagesContainer = useRef<HTMLDivElement | null>(null);
+
+  const isEmptyFilters = useMemo(() => {
+    if (filters === '{}') {
+      return false;
+    }
+
+    return true;
+  }, [filters]);
+
+  const requestMessage = useMemo(() => {
+    if (promptMessage[0].content && !isEmptyFilters) {
+      return promptMessage;
+    }
+
+    if (!promptMessage[0].content && isEmptyFilters) {
+      return [{
+        role: Roles.User,
+        content: `Топ 5 фільмів ${filters}`,
+      }];
+    }
+
+    if (promptMessage[0].content && isEmptyFilters) {
+      return [{
+        ...promptMessage[0],
+        content: `${promptMessage[0].content}, ${filters}`,
+      }];
+    }
+
+    return '';
+  }, [promptMessage, filters]);
 
   const handleTextareaValue = useCallback(
     (event: ChangeEvent<HTMLTextAreaElement>) => {
@@ -59,20 +97,23 @@ export const ChatWindow: React.FC = () => {
       event: FormEvent<HTMLFormElement> | KeyboardEvent<HTMLTextAreaElement>,
     ) => {
       event.preventDefault();
+      setPrompt('');
+
       if (isLoading) {
         return;
       }
 
-      if (!promptMessage[0].content) {
+      if (!requestMessage) {
         setError(Errors.Empty);
 
         return;
       }
 
-      setPrompt('');
-      setMessages((prev) => [...prev, ...promptMessage]);
+      if (promptMessage[0].content) {
+        setMessages((prev) => [...prev, ...promptMessage]);
+      }
 
-      const requestMessages = [...messages, ...promptMessage];
+      const requestMessages = [...messages, ...requestMessage];
 
       const fetchAnswer = async () => {
         try {
@@ -94,10 +135,10 @@ export const ChatWindow: React.FC = () => {
         } catch (innerError) {
           setMessages((current) => [...current.slice(0, -1)]);
           setError(Errors.Download);
+          setIsLoading(false);
 
           if (promptMessage[0].content) {
             setPrompt(promptMessage[0].content);
-            setIsLoading(false);
           }
         } finally {
           setIsLoading(false);
@@ -106,7 +147,7 @@ export const ChatWindow: React.FC = () => {
 
       fetchAnswer();
     },
-    [messages, promptMessage, prompt],
+    [messages, promptMessage, requestMessage],
   );
 
   const addPrompt = useCallback(
@@ -136,9 +177,16 @@ export const ChatWindow: React.FC = () => {
     };
   }, [error]);
 
+  useEffect(() => {
+    if (messagesContainer.current) {
+      messagesContainer.current
+        .scrollTop = messagesContainer.current.scrollHeight;
+    }
+  }, [messages]);
+
   return (
     <div className="chatWindow">
-      <div className="chatWindow__messages">
+      <div className="chatWindow__messages" ref={messagesContainer}>
         {messages
           && messages.map(
             (message, i) => <Messages key={i} message={message} />,

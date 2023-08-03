@@ -1,0 +1,41 @@
+.genre {
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+  font-size: 16px;
+
+  &__item {
+    margin: 5px;
+    background-color: #03a9f1;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.5s ease;
+    flex-grow: 1
+  }
+
+  &__label {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
+  }
+
+  &__name {
+    margin: 0;
+    color: white;
+  }
+
+  &__checkbox {
+    display: inline-block;
+    position: absolute;
+    opacity: 0;
+  }
+}
+
+.is-active-genre {
+  background-color: #f18303;
+}
