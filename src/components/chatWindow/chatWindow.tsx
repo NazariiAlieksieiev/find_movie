@@ -23,16 +23,7 @@ interface Props {
 
 export const ChatWindow: React.FC<Props> = ({ filters }) => {
   const [prompt, setPrompt] = useState<string>('');
-  const [messages, setMessages] = useState<ChatCompletionResponseMessage[]>([
-    {
-      role: Roles.User,
-      content: 'Привіт',
-    },
-    {
-      role: Roles.Assistant,
-      content: 'Привіт',
-    },
-  ]);
+  const [messages, setMessages] = useState<ChatCompletionResponseMessage[]>([]);
   const [promptMessage, setPromptMessage] = useState<
   ChatCompletionResponseMessage[]
   >([
