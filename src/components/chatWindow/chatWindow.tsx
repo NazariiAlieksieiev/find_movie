@@ -119,7 +119,7 @@ export const ChatWindow: React.FC<Props> = ({ filters }) => {
         try {
           setIsLoading(true);
           const response = await axios.post(
-            'http://localhost:5000/find_movie',
+            'https://calm-ruby-pronghorn-wrap.cyclic.app/find_movie',
             { sendedMessages: requestMessages },
           );
 
