@@ -23,7 +23,16 @@ interface Props {
 
 export const ChatWindow: React.FC<Props> = ({ filters }) => {
   const [prompt, setPrompt] = useState<string>('');
-  const [messages, setMessages] = useState<ChatCompletionResponseMessage[]>([]);
+  const [messages, setMessages] = useState<ChatCompletionResponseMessage[]>([
+    {
+      role: Roles.User,
+      content: 'Привіт',
+    },
+    {
+      role: Roles.Assistant,
+      content: 'Привіт',
+    },
+  ]);
   const [promptMessage, setPromptMessage] = useState<
   ChatCompletionResponseMessage[]
   >([
@@ -110,7 +119,7 @@ export const ChatWindow: React.FC<Props> = ({ filters }) => {
         try {
           setIsLoading(true);
           const response = await axios.post(
-            'http://localhost:5000/find_movie',
+            'https://calm-ruby-pronghorn-wrap.cyclic.app/find_movie',
             { sendedMessages: requestMessages },
           );
 
