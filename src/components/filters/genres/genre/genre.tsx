@@ -12,16 +12,16 @@ export const Genre: React.FC<Props> = ({ genre, addGenre }) => {
 
   return (
     <div
-      className={classNames('genre__item', { 'is-active-genre': checked })}
+      className={classNames('genres__item', { 'is-active-genre': checked })}
     >
-      <label className="genre__label">
-        <p className="genre__name">
+      <label className="genres__label">
+        <p className="genres__name">
           {genreName}
         </p>
         <input
-          className="genre__checkbox"
+          className="genres__checkbox"
           type="checkbox"
-          name="genre"
+          name="genres"
           checked={checked}
           onChange={(event) => addGenre(id, event)}
         />
