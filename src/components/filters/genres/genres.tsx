@@ -8,9 +8,13 @@ import { FiltersTypes } from '../../../types/filters';
 
 interface Props {
   setFilters: (filters: FiltersTypes | {}) => void
+  resetFilters: boolean,
 }
 
-export const Genres: React.FC<Props> = ({ setFilters }) => {
+export const Genres: React.FC<Props> = ({
+  setFilters,
+  resetFilters,
+}) => {
   const [genres, setGenres] = useState<MovieGenre[]>(movieGenres);
 
   const selectedGenres = useMemo(() => {
@@ -52,6 +56,12 @@ export const Genres: React.FC<Props> = ({ setFilters }) => {
       return newFilters;
     });
   }, [selectedGenres]);
+
+  useEffect(() => {
+    if (resetFilters) {
+      setGenres(movieGenres);
+    }
+  }, [resetFilters]);
 
   return (
     <div className="genres">

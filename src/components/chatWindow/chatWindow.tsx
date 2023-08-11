@@ -19,9 +19,10 @@ import { Errors } from '../../types/errors';
 
 interface Props {
   filters: string,
+  setResetFilters: (boolean: boolean) => void
 }
 
-export const ChatWindow: React.FC<Props> = ({ filters }) => {
+export const ChatWindow: React.FC<Props> = ({ filters, setResetFilters }) => {
   const [prompt, setPrompt] = useState<string>('');
   const [messages, setMessages] = useState<ChatCompletionResponseMessage[]>([
     {
@@ -54,21 +55,23 @@ export const ChatWindow: React.FC<Props> = ({ filters }) => {
   }, [filters]);
 
   const requestMessage = useMemo(() => {
-    if (promptMessage[0].content && !isEmptyFilters) {
+    const initialMessage = promptMessage[0].content;
+
+    if (initialMessage && !isEmptyFilters) {
       return promptMessage;
     }
 
-    if (!promptMessage[0].content && isEmptyFilters) {
+    if (!initialMessage && isEmptyFilters) {
       return [{
         role: Roles.User,
         content: `Топ 5 фільмів ${filters}`,
       }];
     }
 
-    if (promptMessage[0].content && isEmptyFilters) {
+    if (initialMessage && isEmptyFilters) {
       return [{
         ...promptMessage[0],
-        content: `${promptMessage[0].content}, ${filters}`,
+        content: `${initialMessage}, ${filters}`,
       }];
     }
 
@@ -132,6 +135,7 @@ export const ChatWindow: React.FC<Props> = ({ filters }) => {
               content: '',
             },
           ]);
+          setResetFilters(false);
         } catch (innerError) {
           setMessages((current) => [...current.slice(0, -1)]);
           setError(Errors.Download);
@@ -142,6 +146,7 @@ export const ChatWindow: React.FC<Props> = ({ filters }) => {
           }
         } finally {
           setIsLoading(false);
+          setResetFilters(true);
         }
       };
 

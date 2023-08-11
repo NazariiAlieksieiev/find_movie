@@ -7,6 +7,7 @@ import { FiltersTypes } from './types/filters';
 
 const App: React.FC = () => {
   const [filters, setFilters] = useState<FiltersTypes>({});
+  const [resetFilters, setResetFilters] = useState<boolean>(false);
 
   const stringifiedFilters = useMemo(() => {
     const jsonString = JSON.stringify(filters);
@@ -19,8 +20,13 @@ const App: React.FC = () => {
       <Header />
       <Filters
         setFilters={setFilters}
+        setResetFilters={setResetFilters}
+        resetFilters={resetFilters}
       />
-      <ChatWindow filters={stringifiedFilters} />
+      <ChatWindow
+        filters={stringifiedFilters}
+        setResetFilters={setResetFilters}
+      />
     </div>
   );
 };
